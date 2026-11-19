@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+  <title>Binance · Dashboard</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ============ RESET & VARIABLES ============ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --binance-yellow: #f0b90b;
+      --binance-yellow-dark: #d9a70a;
+      --binance-yellow-soft: #fef7e0;
+      --dark-bg: #1e2329;
+      --dark-surface: #2b3139;
+      --light-bg: #f5f5f5;
+      --white: #ffffff;
+      --text-primary: #1e2329;
+      --text-secondary: #707a83;
+      --text-light: #b7bdc6;
+      --border: #eaecef;
+      --border-dark: #3a4249;
+      --green: #0ecb81;
+      --red: #f6465d;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+      --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--light-bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============ LAYOUT ============ */
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ============ SIDEBAR ============ */
+    .sidebar {
+      width: 240px;
+      background: var(--dark-bg);
+      color: var(--text-light);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+      transition: transform var(--transition);
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0 0.5rem 1.5rem;
+      border-bottom: 1px solid var(--border-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-brand .logo-mark {
+      width: 36px;
+      height: 36px;
+      background: var(--binance-yellow);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--dark-bg);
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .sidebar-brand .brand-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-light);
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--dark-surface);
+      color: var(--white);
+    }
+
+    .sidebar-nav a.active {
+      background: var(--binance-yellow);
+      color: var(--dark-bg);
+      font-weight: 600;
+    }
+
+    .sidebar-nav a i {
+      width: 18px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .sidebar-footer {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-dark);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    /* ============ MAIN CONTENT ============ */
+    .main {
+      flex: 1;
+      margin-left: 240px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* ============ TOPBAR ============ */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .topbar-left h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 0.2rem;
+    }
+
+    .topbar-left p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .topbar-right .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .topbar-right .icon-btn:hover {
+      color: var(--binance-yellow-dark);
+      border-color: var(--binance-yellow);
+    }
+
+    .topbar-right .icon-btn .badge-dot {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      border: 2px solid var(--white);
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--white);
+      padding: 0.45rem 1rem 0.45rem 0.5rem;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .user-chip .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--binance-yellow), var(--binance-yellow-dark));
+      display: grid;
+      place-items: center;
+      color: var(--dark-bg);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .user-chip .user-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .user-chip .user-info .name {
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+    .user-chip .user-info .status {
+      font-size: 0.72rem;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .user-chip .user-info .status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* ============ BALANCE CARD ============ */
+    .balance-card {
+      background: linear-gradient(135deg, var(--dark-bg) 0%, #2b3139 100%);
+      color: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .balance-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(240, 185, 11, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .balance-info {
+      position: relative;
+      z-index: 1;
+    }
+
+    .balance-info .label {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+
+    .balance-info .amount {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .balance-info .amount span {
+      color: var(--binance-yellow);
+    }
+
+    .balance-info .change {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(14, 203, 129, 0.15);
+      color: var(--green);
+      padding: 0.35rem 0.85rem;
+      border-radius: 40px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .balance-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--binance-yellow);
+      color: var(--dark-bg);
+    }
+
+    .btn-primary:hover {
+      background: var(--binance-yellow-dark);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border-dark);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--binance-yellow);
+      color: var(--binance-yellow);
+    }
+
+    /* ============ STATS GRID ============ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-card .stat-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+
+    .stat-card .stat-label i {
+      color: var(--binance-yellow-dark);
+    }
+
+    .stat-card .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-card .stat-change {
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .stat-change.up { color: var(--green); }
+    .stat-change.down { color: var(--red); }
+
+    /* ============ MARKET TABLE ============ */
+    .market-section {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .market-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .market-header h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .market-tabs {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .market-tabs button {
+      padding: 0.45rem 1rem;
+      border-radius: 40px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .market-tabs button:hover {
+      color: var(--text-primary);
+    }
+
+    .market-tabs button.active {
+      background: var(--binance-yellow-soft);
+      color: var(--binance-yellow-dark);
+      border-color: var(--binance-yellow);
+      font-weight: 600;
+    }
+
+    .market-table-wrap {
+      overflow-x: auto;
+    }
+
+    .market-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    .market-table th {
+      text-align: left;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #fafafa;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .market-table td {
+      padding: 1rem 1.5rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .market-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .market-table tbody tr {
+      transition: background var(--transition);
+    }
+
+    .market-table tbody tr:hover {
+      background: #fafbfc;
+    }
+
+    .coin-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .coin-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .coin-icon.btc { background: #f7931a; }
+    .coin-icon.eth { background: #627eea; }
+    .coin-icon.bnb { background: #f0b90b; color: var(--dark-bg); }
+    .coin-icon.sol { background: #14f195; color: var(--dark-bg); }
+    .coin-icon.xrp { background: #23292f; }
+
+    .coin-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+    }
+
+    .coin-info .symbol {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .coin-info .name {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .price-cell {
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .change-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .change-pill.up {
+      background: rgba(14, 203, 129, 0.1);
+      color: var(--green);
+    }
+
+    .change-pill.down {
+      background: rgba(246, 70, 93, 0.1);
+      color: var(--red);
+    }
+
+    .action-btn {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: var(--transition);
+      background: var(--binance-yellow);
+      color: var(--dark-bg);
+    }
+
+    .action-btn:hover {
+      background: var(--binance-yellow-dark);
+    }
+
+    /* ============ RESPONSIVE ============ */
+    .mobile-menu-btn {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--dark-bg);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      place-items: center;
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .sidebar-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 1.25rem;
+        padding-top: 4.5rem;
+      }
+
+      .mobile-menu-btn {
+        display: grid;
+      }
+
+      .topbar-left h1 {
+        font-size: 1.25rem;
+      }
+
+      .balance-card {
+        padding: 1.5rem;
+      }
+
+      .balance-actions .btn {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .user-chip .user-info .name {
+        display: none;
+      }
+
+      .user-chip {
+        padding: 0.35rem;
+        border-radius: 50%;
+      }
+
+      .balance-info .amount {
+        font-size: 1.9rem;
+      }
+
+      .market-table th,
+      .market-table td {
+        padding: 0.75rem 1rem;
+      }
+
+      .market-table {
+        min-width: 500px;
+      }
+
+      .topbar-right .icon-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .balance-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .balance-actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Mobile menu button -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+  <!-- Sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="app">
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-mark">B</div>
+        <div class="brand-name">Binance</div>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li><a href="#" class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="#"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
+        <li><a href="#"><i class="fa-solid fa-arrow-right-arrow-left"></i> Convert</a></li>
+        <li><a href="#"><i class="fa-solid fa-coins"></i> Earn</a></li>
+        <li><a href="#"><i class="fa-solid fa-chart-line"></i> Markets</a></li>
+        <li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Orders</a></li>
+        <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        © 2025 Binance
+      </div>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main class="main">
+      <!-- Topbar -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <h1>Dashboard</h1>
+          <p id="todayDate">—</p>
+        </div>
+
+        <div class="topbar-right">
+          <button class="icon-btn" aria-label="Notifications">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+
+          <div class="user-chip">
+            <div class="avatar">F</div>
+            <div class="user-info">
+              <span class="name">Fred</span>
+              <span class="status">Online</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Balance card -->
+      <section class="balance-card" aria-label="Account balance">
+        <div class="balance-info">
+          <div class="label">Total balance</div>
+          <div class="amount">KSh <span>720,567</span></div>
+          <div class="change">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            +2.34% today
+          </div>
+        </div>
+
+        <div class="balance-actions">
+          <button class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Deposit
+          </button>
+          <button class="btn btn-outline">
+            <i class="fa-solid fa-paper-plane"></i> Withdraw
+          </button>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="stats-grid" aria-label="Account stats">
+        <div class="stat-card">
+          <div class="stat-label"><i class="fa-solid fa-wallet"></i> Available</div>
+          <div class="stat-value">KSh 695,200</div>
+          <div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +1.2%</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label"><i class="fa-solid fa-lock"></i> In orders</div>
+          <div class="stat-value">KSh 25,367</div>
+          <div class="stat-change down"><i class="fa-solid fa-arrow-down"></i> −0.3%</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label"><i class="fa-solid fa-coins"></i> Total profit</div>
+          <div class="stat-value">KSh 48,120</div>
+          <div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +7.8%</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label"><i class="fa-solid fa-percent"></i> Today's PnL</div>
+          <div class="stat-value">+KSh 12,540</div>
+          <div class="stat-change up"><i class="fa-solid fa-arrow-up"></i> +1.75%</div>
+        </div>
+      </section>
+
+      <!-- Market table -->
+      <section class="market-section" aria-label="Market prices">
+        <div class="market-header">
+          <h2>Markets</h2>
+          <div class="market-tabs" id="marketTabs">
+            <button class="active" data-tab="favorites">Favorites</button>
+            <button data-tab="all">All</button>
+            <button data-tab="gainers">Gainers</button>
+            <button data-tab="losers">Losers</button>
+          </div>
+        </div>
+
+        <div class="market-table-wrap">
+          <table class="market-table">
+            <thead>
+              <tr>
+                <th>Pair</th>
+                <th>Price</th>
+                <th>24h Change</th>
+                <th>24h Volume</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="marketBody">
+              <!-- rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ============================================================
+         MARKET DATA
+      ============================================================ */
+      const MARKETS = [
+        { symbol: 'BTC', name: 'Bitcoin',  price: 9684220.15, change: 2.14,  volume: '1.24B', cls: 'btc', favorite: true  },
+        { symbol: 'ETH', name: 'Ethereum', price: 512380.40,  change: 1.87,  volume: '842M',  cls: 'eth', favorite: true  },
+        { symbol: 'BNB', name: 'BNB',      price: 78240.10,   change: -0.42, volume: '412M',  cls: 'bnb', favorite: true  },
+        { symbol: 'SOL', name: 'Solana',   price: 18420.55,   change: 4.62,  volume: '398M',  cls: 'sol', favorite: false },
+        { symbol: 'XRP', name: 'XRP',      price: 134.22,     change: -1.21, volume: '276M',  cls: 'xrp', favorite: false },
+        { symbol: 'ADA', name: 'Cardano',  price: 78.94,      change: 0.35,  volume: '124M',  cls: 'btc', favorite: false }
+      ];
+
+      /* ============================================================
+         HELPERS
+      ============================================================ */
+      const $ = (sel) => document.querySelector(sel);
+
+      function formatKsh(value) {
+        return 'KSh ' + value.toLocaleString('en-KE', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+
+      function formatChange(change) {
+        const sign = change >= 0 ? '+' : '';
+        return sign + change.toFixed(2) + '%';
+      }
+
+      /* ============================================================
+         RENDER MARKET TABLE
+      ============================================================ */
+      function renderMarkets(filter = 'favorites') {
+        let list = MARKETS.slice();
+
+        if (filter === 'favorites') list = list.filter(c => c.favorite);
+        else if (filter === 'gainers') list = list.filter(c => c.change > 0).sort((a, b) => b.change - a.change);
+        else if (filter === 'losers') list = list.filter(c => c.change < 0).sort((a, b) => a.change - b.change);
+
+        const body = $('#marketBody');
+
+        if (!list.length) {
+          body.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-secondary);padding:2rem;">No pairs match this filter.</td></tr>`;
+          return;
+        }
+
+        body.innerHTML = list.map(c => {
+          const isUp = c.change >= 0;
+          return `
+            <tr>
+              <td>
+                <div class="coin-cell">
+                  <div class="coin-icon ${c.cls}">${c.symbol.charAt(0)}</div>
+                  <div class="coin-info">
+                    <span class="symbol">${c.symbol}/KSH</span>
+                    <span class="name">${c.name}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="price-cell">${formatKsh(c.price)}</td>
+              <td>
+                <span class="change-pill ${isUp ? 'up' : 'down'}">
+                  <i class="fa-solid fa-arrow-${isUp ? 'up' : 'down'}"></i>
+                  ${formatChange(c.change)}
+                </span>
+              </td>
+              <td class="price-cell" style="color:var(--text-secondary);font-weight:500;">${c.volume}</td>
+              <td><button class="action-btn">Trade</button></td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      /* ============================================================
+         MARKET TABS
+      ============================================================ */
+      document.getElementById('marketTabs').addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+
+        document.querySelectorAll('#marketTabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        renderMarkets(btn.dataset.tab);
+      });
+
+      /* ============================================================
+         TODAY'S DATE
+      ============================================================ */
+      (function setDate() {
+        const el = $('#todayDate');
+        if (!el) return;
+        const today = new Date();
+        const formatted = today.toLocaleDateString('en-GB', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        });
+        el.textContent = formatted;
+      })();
+
+      /* ============================================================
+         MOBILE SIDEBAR
+      ============================================================ */
+      (function initMobileNav() {
+        const btn = $('#mobileMenuBtn');
+        const sidebar = $('#sidebar');
+        const overlay = $('#sidebarOverlay');
+
+        if (!btn || !sidebar || !overlay) return;
+
+        function openSidebar() {
+          sidebar.classList.add('open');
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+
+        btn.addEventListener('click', openSidebar);
+        overlay.addEventListener('click', closeSidebar);
+
+        // Close on nav click (mobile)
+        sidebar.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', () => {
+            if (window.innerWidth <= 900) closeSidebar();
+          });
+        });
+
+        // Close on resize to desktop
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 900) closeSidebar();
+        });
+      })();
+
+      /* ============================================================
+         INIT
+      ============================================================ */
+      renderMarkets('favorites');
+    })();
+  </script>
+</body>
+</html>
